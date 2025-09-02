@@ -22,7 +22,7 @@ export const UsuariosPage = () => {
   const [usuarios, setUsuarios] = useState<UsersType[]>([]);
   const [total, setTotal] = useState(0);
 
-  // IMPORTANTE: DataGrid usa page 0-based. Si tu backend es 1-based, sumamos +1 al enviar.
+  
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
     page: 0,
     pageSize: 10,
@@ -43,10 +43,8 @@ export const UsuariosPage = () => {
       //   search,
       //   filterStatus,
       // });
-
       const orderBy = sortModel?.[0]?.field ?? undefined
       const orderDir = sortModel?.[0]?.sort ?? undefined
-
       const response = await axios.get('/users', {
         params: {
           page: paginationModel.page + 1, // backend 1-based

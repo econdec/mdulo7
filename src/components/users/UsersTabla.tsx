@@ -45,7 +45,7 @@ export const UsersTabla = ({
       width: 150,
       renderCell: (params: GridRenderCellParams) => (
         <Chip
-          label={params.value === "active" ? 'Hecho' : 'Pendiente'}
+          label={params.value === "active" ? 'Activo' : 'Inactivo'}
           color={params.value === "active" ? 'success' : 'warning'}
           size="small"
           variant="outlined"
@@ -68,7 +68,7 @@ export const UsersTabla = ({
 
           <Tooltip
             title={
-              params.row.done === "active" ? 'Marcar pendiente' : 'Marcar hecho'
+              params.row.done === "active" ? 'Marcar Inactivo' : 'Marcar Activo'
             }
           >
             <IconButton
