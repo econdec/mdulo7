@@ -44,22 +44,33 @@ export const UsuariosPage = () => {
       //   filterStatus,
       // });
 
-      const orderBy = sortModel?.[0]?.field ?? undefined;
-      const orderDir = sortModel?.[0]?.sort ?? undefined;
+      const orderBy = sortModel?.[0]?.field ?? undefined
+      const orderDir = sortModel?.[0]?.sort ?? undefined
 
       const response = await axios.get('/users', {
         params: {
-          page: paginationModel.page + 1,       // backend 1-based
+          page: paginationModel.page + 1, // backend 1-based
           limit: paginationModel.pageSize,
           orderBy,
           orderDir,
           search: search || undefined,
-          status: filterStatus === 'all' ? undefined : filterStatus, // fix
-        },
-      });
+          status: filterStatus === 'all' ? undefined : filterStatus
+        }
+      })
 
-      setUsuarios(response.data.data);
-      setTotal(response.data.total);
+      // Debug útil
+      console.log('GET /users ->', response.data)
+
+      const payload = response.data
+
+      setUsuarios(payload as UsersType[])
+      setTotal(
+        // si tu backend no devuelve total, usa el tamaño del array como fallback
+        typeof (response as any).data?.total === 'number'
+          ? (response as any).data.total
+          : payload.length
+      )
+      return
     } catch (error) {
       showAlert(errorHelper(error), 'error');
     }
